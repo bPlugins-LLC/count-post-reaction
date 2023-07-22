@@ -1,0 +1,7 @@
+# Ignore everything
+
+/node_modules
+/languages
+/vendor/
+/dist
+/bundled

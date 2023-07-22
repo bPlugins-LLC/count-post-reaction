@@ -1,0 +1,15 @@
+{
+  "name": "rajud/count-post-reactions",
+  "autoload": {
+    "psr-4": {
+      "PostReaction\\": "inc/"
+    }
+  },
+  "authors": [
+    {
+      "name": "shehabulislam",
+      "email": "rajudjp28@gmail.com"
+    }
+  ],
+  "require": {}
+}
