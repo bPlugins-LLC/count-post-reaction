@@ -1,6 +1,6 @@
 import { Button, FormToggle, PanelBody, PanelRow, TextControl, TextareaControl } from "@wordpress/components";
 import { __ } from "@wordpress/i18n";
-import React from "react";
+import React, { useEffect } from "react";
 
 // import SimpleLoader from "./../../../../wp-utils/components/Loader/SimpleLoader";
 
@@ -8,8 +8,6 @@ const CustomReact = ({ customReacts, handleChange }) => {
   const handleCustomReactChange = (index, key, value) => {
     const newCustomReacts = [...customReacts];
     newCustomReacts[index][key] = value;
-
-    console.log(newCustomReacts);
     handleChange({ customReacts: newCustomReacts });
   };
 
@@ -35,25 +33,45 @@ const CustomReact = ({ customReacts, handleChange }) => {
     }
   }
 
+  useEffect(() => {
+    customReacts.map((item, index) => {
+      if (item.svg?.length > 30 && !item.svg?.includes(".")) handleCustomReactChange(index, "svg", decodeIcon(item["svg"]));
+    });
+  }, []);
+
   return (
     <div>
-      <label>{__("Custom React", "count-post-react")}</label>
+      <label>{__("Custom React", "post-reactions-counter")}</label>
       {customReacts.map((item, index) => (
         <>
-          <PanelBody title={item.name || __("Custom React", "count-post-react")} initialOpen={false}>
+          <PanelBody title={item.name || __("Custom React", "post-reactions-counter")} initialOpen={false}>
             <PanelRow>
-              <label>{__("Enabled", "count-post-react")}</label>
+              <label>{__("Enabled", "post-reactions-counter")}</label>
               <FormToggle checked={item.enabled} onChange={() => handleCustomReactChange(index, "enabled", !item.enabled)} />
             </PanelRow>
-            <TextControl label={__("React Name", "count-post-react")} value={item?.name} onChange={(name) => handleCustomReactChange(index, "name", name)} />
-            <TextControl label={__("Unique React ID", "count-post-react")} value={item?.id} onChange={(id) => handleCustomReactChange(index, "id", id)} />
-            <TextareaControl label={__("SVG Icon", "count-post-react")} value={decodeIcon(item?.svg)} onChange={(svg) => handleCustomReactChange(index, "svg", svg)} />
+            <TextControl label={__("React Name", "post-reactions-counter")} value={item?.name} onChange={(name) => handleCustomReactChange(index, "name", name)} />
+            <TextControl label={__("Unique React ID", "post-reactions-counter")} value={item?.id} onChange={(id) => handleCustomReactChange(index, "id", id)} />
+            <TextareaControl label={__("SVG Icon", "post-reactions-counter")} value={item?.svg} onChange={(svg) => handleCustomReactChange(index, "svg", svg)} />
+            <div className="cprActionButton">
+              {" "}
+              <Button
+                variant="danger"
+                className="button button-danger"
+                onClick={() => {
+                  const newCustomReacts = [...customReacts];
+                  newCustomReacts.splice(index, 1);
+                  handleChange({ customReacts: newCustomReacts });
+                }}
+              >
+                {__("Delete", "post-reactions-counter")}
+              </Button>
+            </div>
           </PanelBody>
         </>
       ))}
       <div className="cprActionButton">
         <Button variant="primary" onClick={handleAddNewReact}>
-          {__("Add New React", "count-post-react")}
+          {__("Add New React", "post-reactions-counter")}
         </Button>
       </div>
     </div>

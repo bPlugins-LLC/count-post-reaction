@@ -15,7 +15,7 @@ class Settings {
 
     // add a page settings
     public function add_opt_in_menu(){
-        add_submenu_page( 'tools.php', __("Count Post React", "count-post-react"), __("Count Post React", "count-post-react"), 'manage_options', 'count-post-react-settings', [$this, 'callback']
+        add_submenu_page( 'tools.php', __("Post Reactions Counter", "post-reactions-counter"), __("Post Reactions Counter", "post-reactions-counter"), 'manage_options', 'post-reactions-counter', [$this, 'callback']
         );
     }
 
@@ -41,7 +41,7 @@ class Settings {
                 ),
             ),
             'type' => 'string',
-            'default' => '{"enabled": true,"postTypes":["post","page"], "enabledReacts": ["like", "love", "wow", "angry"], "customReacts":[], "onlyUserCanReact": true, "iconSize": "20px","activeBackground":"#12ff0045", "design": "design-1" }',
+            'default' => '{"enabled": true,"postTypes":["post","page"], "enabledReacts": ["like", "love", "wow", "angry"], "customReacts":[], "onlyUserCanReact": true, "iconSize": "30px","activeBackground":"#12ff0045", "design": "design-1" }',
             'sanitize_callback' => 'wp_kses_post',
         ));
 

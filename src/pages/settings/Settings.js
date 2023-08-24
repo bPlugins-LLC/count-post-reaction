@@ -33,7 +33,7 @@ const Settings = () => {
   const handleSaveData = () => {
     const customReacts = [...settings.customReacts];
     settings.customReacts?.map((item, index) => {
-      if (item.svg.includes("svg")) {
+      if (item.svg?.includes("svg")) {
         customReacts[index].svg = btoa(item.svg);
       }
     });
@@ -50,7 +50,7 @@ const Settings = () => {
       <>
         <div className="fit-content">
           <PanelRow>
-            <label>{__("Enabled", "count-post-react")}</label>
+            <label>{__("Enabled", "post-reactions-counter")}</label>
             <FormToggle checked={enabled} onChange={() => handleChange({ enabled: !enabled })} />
           </PanelRow>
         </div>
@@ -58,17 +58,17 @@ const Settings = () => {
           <>
             <div className="fit-content">
               <PanelRow>
-                <label>{__("Only User Can React", "count-post-react")}</label>
+                <label>{__("Only User Can React", "post-reactions-counter")}</label>
                 <FormToggle checked={onlyUserCanReact} onChange={() => handleChange({ onlyUserCanReact: !onlyUserCanReact })} />
               </PanelRow>
             </div>
             <div className="fit-content">
               <PanelRow>
-                <label>{__("React Content Position", "count-post-react")}</label>
+                <label>{__("React Content Position", "post-reactions-counter")}</label>
                 <SelectControl
                   options={[
-                    { label: __("After Content", "count-post-react"), value: "after_content" },
-                    { label: __("Before Content", "count-post-react"), value: "before_content" },
+                    { label: __("Before Content", "post-reactions-counter"), value: "before_content" },
+                    { label: __("After Content", "post-reactions-counter"), value: "after_content" },
                   ]}
                   value={contentPosition}
                   onChange={(contentPosition) => handleChange({ contentPosition })}
@@ -93,13 +93,13 @@ const Settings = () => {
             </div>
             <div className="fit-content">
               <PanelRow>
-                <label>{__("Icon Size", "count-post-react")}</label>
+                <label>{__("Icon Size", "post-reactions-counter")}</label>
                 <UnitControl onChange={(iconSize) => handleChange({ iconSize })} value={iconSize} />
               </PanelRow>
             </div>
             <div className="fit-content">
               <PanelRow>
-                <label>{__("Active Icon Background", "count-post-react")}</label>
+                <label>{__("Active Icon Background", "post-reactions-counter")}</label>
                 <BColor onChange={(activeBackground) => handleChange({ activeBackground })} value={activeBackground} />
               </PanelRow>
             </div>
@@ -107,7 +107,7 @@ const Settings = () => {
             <CustomReact customReacts={customReacts} handleChange={handleChange} />
             {/* </div> */}
             <div className="fit-content">
-              <label>{__("Design", "count-post-react")}</label>
+              <label>{__("Design", "post-reactions-counter")}</label>
               <div className="designs">
                 <img onClick={() => handleChange({ design: "design-1" })} src={design1} className={design === "design-1" ? "active" : ""} />
                 <img onClick={() => handleChange({ design: "design-2" })} src={design2} className={design === "design-2" ? "active" : ""} />
@@ -115,12 +115,12 @@ const Settings = () => {
             </div>
 
             <div>
-              <label>{__("Before Content", "count-post-react")}</label>
+              <label>{__("Content Before React", "post-reactions-counter")}</label>
               {/* <RichText tagName="p" allowedFormats={["core/bold", "core/italic"]} value={beforeContent} onChange={(beforeContent) => handleChange({ beforeContent })} /> */}
               <TextareaControl rows="2" value={beforeContent} onChange={(beforeContent) => handleChange({ beforeContent })} />
             </div>
             <div>
-              <label>{__("After Content", "count-post-react")}</label>
+              <label>{__("Content After React", "post-reactions-counter")}</label>
               <TextareaControl rows="2" value={afterContent} onChange={(afterContent) => handleChange({ afterContent })} />
             </div>
           </>
@@ -131,7 +131,7 @@ const Settings = () => {
       <div className="cprActionButton">
         {dataSaving && <SimpleLoader />}
         <Button disabled={dataSaving} variant="primary" onClick={handleSaveData}>
-          {__("Save", "count-post-react")}
+          {__("Save", "post-reactions-counter")}
         </Button>
       </div>
       {/* </div> */}

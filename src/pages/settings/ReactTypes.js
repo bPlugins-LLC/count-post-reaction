@@ -7,7 +7,7 @@ const ReactTypes = ({ enabledReacts = [], handleChange }) => {
 
   return (
     <div className="CPRPostCheckbox">
-      <label>{__("Enable Reacts", "count-post-react")}: </label>
+      <label>{__("Enable Reacts", "post-reactions-counter")}: </label>
       <div className="cprReacts">
         {reactTypes?.map((react) => {
           return <CheckboxControl key={react} label={react} checked={enabledReacts?.includes(react)} onChange={(checked) => (checked ? handleChange({ enabledReacts: [...enabledReacts, react] }) : handleChange({ enabledReacts: enabledReacts.filter((item) => item != react) }))} />;

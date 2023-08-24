@@ -57,7 +57,7 @@ jQuery(document).ready(function ($) {
             .find("li")
             .map((index, element) => {
               const reaction_type = $(element).data("reaction-type");
-              $(this).parent().find(`li[data-reaction-type="${reaction_type}"] span`).html(response.data.count[reaction_type]);
+              $(this).parent().find(`li[data-reaction-type="${reaction_type}"] span:not(.prc_react_icon)`).html(response.data.count[reaction_type]);
               if (reaction_type === active_reaction && !$(this).hasClass("reacted_to")) {
                 console.log(reaction_type, active_reaction);
                 $(element).addClass("reacted_to");

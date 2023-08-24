@@ -105,35 +105,26 @@ class PostReactionCounter{
         $count_html = '<ul class="post-reactions-list '. $this->settings['design'] . ' ">';
 
         if(in_array('like', $this->settings['enabledReacts'])){
-            $count_html .= '<li title="like" class="'.$likeClass.'" data-post-id="'.$post_id.'" data-reaction-type="like"><svg fill="#000000" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52" enable-background="new 0 0 52 52" xml:space="preserve"> <g> <path d="M10.5,21h-5C4.7,21,4,21.7,4,22.5v23C4,46.3,4.7,47,5.5,47H8c2.2,0,4-1.8,4-4V22.5C12,21.7,11.3,21,10.5,21 z"/> <path d="M44,22h-6c-2.2,0-4-1.8-4-4V8c0-2.2-1.8-4-4-4h-2.5C26.7,4,26,4.7,26,5.5v6c0,5.3-3.7,10.5-8.5,10.5 c-0.8,0-1.5,0.7-1.5,1.5v20c0,0.8,0.6,1.5,1.4,1.5c6.8,0.3,9.1,3,16.2,3c7.5,0,14.4-0.8,14.4-9.5v-5V26C48,23.8,46.2,22,44,22z"/> </g> </svg> <span>' . $formatted_counts['like'] . '</span></li>';
+            $count_html .= '<li title="like" class="'.$likeClass.'" data-post-id="'.$post_id.'" data-reaction-type="like"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M313.4 32.9c26 5.2 42.9 30.5 37.7 56.5l-2.3 11.4c-5.3 26.7-15.1 52.1-28.8 75.2H464c26.5 0 48 21.5 48 48c0 18.5-10.5 34.6-25.9 42.6C497 275.4 504 288.9 504 304c0 23.4-16.8 42.9-38.9 47.1c4.4 7.3 6.9 15.8 6.9 24.9c0 21.3-13.9 39.4-33.1 45.6c.7 3.3 1.1 6.8 1.1 10.4c0 26.5-21.5 48-48 48H294.5c-19 0-37.5-5.6-53.3-16.1l-38.5-25.7C176 420.4 160 390.4 160 358.3V320 272 247.1c0-29.2 13.3-56.7 36-75l7.4-5.9c26.5-21.2 44.6-51 51.2-84.2l2.3-11.4c5.2-26 30.5-42.9 56.5-37.7zM32 192H96c17.7 0 32 14.3 32 32V448c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32V224c0-17.7 14.3-32 32-32z"/></svg> <span>' . $formatted_counts['like'] . '</span></li>';
         }
 
         if(in_array('love', $this->settings['enabledReacts'])){
-            $count_html .= '<li title="love" class="'.$loveClass.'" data-post-id="'.$post_id.'" data-reaction-type="love"><svg viewBox="0 0 24 24" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
-            <g transform="translate(0 -1028.4)">
-            <path d="m7 1031.4c-1.5355 0-3.0784 0.5-4.25 1.7-2.3431 2.4-2.2788 6.1 0 8.5l9.25 9.8 9.25-9.8c2.279-2.4 2.343-6.1 0-8.5-2.343-2.3-6.157-2.3-8.5 0l-0.75 0.8-0.75-0.8c-1.172-1.2-2.7145-1.7-4.25-1.7z" fill="#e74c3c"/>
-            </g>
-             </svg> <span>' . $formatted_counts['love'] . '</span></li>';
+            $count_html .= '<li title="love" class="'.$loveClass.'" data-post-id="'.$post_id.'" data-reaction-type="love"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#db1428"><path d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/></svg> <span>' . $formatted_counts['love'] . '</span></li>';
         }
 
         if(in_array('wow', $this->settings['enabledReacts'])){
-            $count_html .= '<li class="'.$wowClass.'" title="wow"  data-post-id="'.$post_id.'" data-reaction-type="wow"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="12" cy="12" r="9.5" stroke="#222222" stroke-linecap="round"/>
-            <circle cx="9" cy="9" r="1" fill="#222222" stroke="#222222" stroke-linecap="round"/>
-            <circle cx="15" cy="9" r="1" fill="#222222" stroke="#222222" stroke-linecap="round"/>
-            <path d="M15 15.5C15 16.8807 13.6569 18 12 18C10.3431 18 9 16.8807 9 15.5C9 14.1193 10.3431 13 12 13C13.6569 13 15 14.1193 15 15.5Z" fill="#222222"/>
-            </svg> <span>' . $formatted_counts['wow'] . '</span></li>';
+            $count_html .= '<li class="'.$wowClass.'" title="wow"  data-post-id="'.$post_id.'" data-reaction-type="wow"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM176.4 176a32 32 0 1 1 0 64 32 32 0 1 1 0-64zm128 32a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zM256 288a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"/></svg><span>' . $formatted_counts['wow'] . '</span></li>';
         }
 
         if(in_array('angry', $this->settings['enabledReacts'])){
-            $count_html .= '<li class="'.$angryClass.'" title="angry"  data-post-id="'.$post_id.'" data-reaction-type="angry"><svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--fxemoji" preserveAspectRatio="xMidYMid meet"><path fill="#FF473E" d="M256 35.3c-121.8 0-220.6 98.8-220.6 220.6c0 2.8.1 5.6.2 8.4c-12.9 1.7-22.9 12.5-22.9 25.9c0 14.5 11.7 26.2 26.2 26.2h4.9C70.1 408.9 155.1 476.6 256 476.6c121.9 0 220.6-98.8 220.6-220.6c0-121.9-98.8-220.7-220.6-220.7z"></path><path fill="#2B3B47" d="M170.5 200.1v41.3c0 13.4-10.8 24.2-24.2 24.2c-13.4 0-24.2-10.8-24.2-24.2v-54.3l48.4 13z"></path><path fill="#2B3B47" d="M390.7 187.1v54.3c0 13.4-10.8 24.2-24.2 24.2c-13.4 0-24.2-10.8-24.2-24.2v-41.3l48.4-13z"></path><path fill="#D32A2A" d="M169.3 208.3c-.8 0-1.5-.1-2.3-.3l-51.5-15.1c-4.3-1.3-6.8-5.8-5.5-10.1c1.3-4.3 5.8-6.8 10.1-5.5l51.5 15.1c4.3 1.3 6.8 5.8 5.5 10.1c-1 3.5-4.3 5.8-7.8 5.8z"></path><path fill="#D32A2A" d="M342.2 208.3c-3.4 0-6.6-2.2-7.8-5.6c-1.4-4.3.9-8.9 5.2-10.3l54.2-17.7c4.3-1.4 8.9.9 10.3 5.2c1.4 4.3-.9 8.9-5.2 10.3l-54.2 17.7c-.8.3-1.6.4-2.5.4z"></path><path fill="#2B3B47" d="M315.7 352.9c-2.4-20.9-18.9-49.6-57.1-49.6c-39.7 0-56 31.2-57.3 52.2c-.3 5.6 2.3 10.9 6.8 14.2c4.5 3.3 10.5 4.1 15.7 2.1c.1 0 11.4-4.2 32.7-4.2c22.2 0 37.9 4.6 38.1 4.7c1.6.5 3.2.7 4.8.7h.1c9.1 0 16.5-7.4 16.5-16.5c.1-1.3-.1-2.5-.3-3.6z"></path><path fill="#D32A2A" d="M476.4 265.8c.1-3.3.3-6.6.3-9.9c0-58.9-23.1-112.4-60.8-152c21.3 34.5 33.6 75.2 33.6 118.8c0 125.2-101.5 226.6-226.7 226.6c-43.6 0-84.2-12.3-118.8-33.6c39.6 37.7 93.1 60.9 152 60.9c100.3 0 185-67 211.7-158.7h5.1c14.5 0 26.2-11.7 26.2-26.2c0-13.3-9.9-24.1-22.6-25.9z"></path></svg> <span>' . $formatted_counts['angry'] . '</span></li>';
+            $count_html .= '<li class="'.$angryClass.'" title="angry"  data-post-id="'.$post_id.'" data-reaction-type="angry"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#c92929"><path d="M0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zM338.7 395.9c6.6-5.9 7.1-16 1.2-22.6C323.8 355.4 295.7 336 256 336s-67.8 19.4-83.9 37.3c-5.9 6.6-5.4 16.7 1.2 22.6s16.7 5.4 22.6-1.2c11.7-13 31.6-26.7 60.1-26.7s48.4 13.7 60.1 26.7c5.9 6.6 16 7.1 22.6 1.2zM176.4 272c17.7 0 32-14.3 32-32c0-1.5-.1-3-.3-4.4l10.9 3.6c8.4 2.8 17.4-1.7 20.2-10.1s-1.7-17.4-10.1-20.2l-96-32c-8.4-2.8-17.4 1.7-20.2 10.1s1.7 17.4 10.1 20.2l30.7 10.2c-5.8 5.8-9.3 13.8-9.3 22.6c0 17.7 14.3 32 32 32zm192-32c0-8.9-3.6-17-9.5-22.8l30.2-10.1c8.4-2.8 12.9-11.9 10.1-20.2s-11.9-12.9-20.2-10.1l-96 32c-8.4 2.8-12.9 11.9-10.1 20.2s11.9 12.9 20.2 10.1l11.7-3.9c-.2 1.5-.3 3.1-.3 4.7c0 17.7 14.3 32 32 32s32-14.3 32-32z"/></svg> <span>' . $formatted_counts['angry'] . '</span></li>';
         }
 
         $count_html .= $this->get_customReacts($post_id, $formatted_counts);
 
         $count_html .= '</ul>';
 
-        $style = '<style>.post-reactions-list{font-size:'.$this->settings['iconSize'].'; gap: calc('.$this->settings['iconSize'].' / 2)} .post-reactions-list li svg {width: '.$this->settings['iconSize'].'}.post-reactions-list.design-1 .reacted_to{background: '.$this->settings['activeBackground'].'}</style>';
+        $style = '<style>.post-reactions-list{font-size:'.$this->settings['iconSize'].'; gap: calc('.$this->settings['iconSize'].' / 2)} .post-reactions-list li svg {width: '.$this->settings['iconSize'].'}.post-reactions-list.design-1 .reacted_to{background: '.$this->settings['activeBackground'].'}.post-reactions-list.design-2 li span:not(.prc_react_icon){font-size: }</style>';
         return $count_html.$style;
     }
 
@@ -296,7 +287,10 @@ class PostReactionCounter{
             foreach($this->settings['customReacts'] as $react){
                 if(isset($react['id']) && $this->isset($react, 'enabled') === true){
                     $this->allowed_reactions = array_merge($this->allowed_reactions, [$react['id']]);
-                    $icon = $react['svg'] ? base64_decode($react['svg']) : '<span class="prc_react_icon">'.$react['id'].'</span>';
+                    $icon = $react['id'];
+                    if((isset($react['svg']) && $react['svg']) && strlen($react['svg']) > 30 && !strpos($react['svg'], '.')){
+                        $icon = base64_decode($react['svg']);
+                    }
                     $count = $formatted_counts[$react['id']] ?? 0;
                     $class = $formatted_counts['reacted'] === $react['id'] ? 'reacted_to' : '';
                     $customReacts .= '<li title="'.$react['name'].'" class="'.$class.'" data-post-id="'.$post_id.'" data-reaction-type="'.$react['id'].'">'.$icon.'<span>' . $count . '</span></li>';
@@ -316,22 +310,20 @@ class PostReactionCounter{
         return wp_parse_args( json_decode(get_option('cprSettings'), true), [
             'enabled' => true,
             'customReacts' => [],
-            'enabledReacts' => [],
+            'enabledReacts' => ['like', 'love', 'angry', 'wow'],
             'afterContent' => '',
             'beforeContent' => '',
             'postTypes' => ['post'],
             'contentPosition' => 'after_content',
             'onlyUserCanReact' => true,
-            "iconSize" => "20px",
+            "iconSize" => "30px",
             "activeBackground" =>"#12ff0045", 
             "design" => "design-1"
         ] );
     }
 
     public function footerAlert(){
-        echo "<img src='".PRC_PLUGIN_DIR ."assets/svg/sprite.svg' alt='' />";
-        echo '<svg class="icon"> <use xlink:href="#angry"></use> </svg><svg class="icon"> <use xlink:href="#heart"></use> </svg><svg class="icon"> <use xlink:href="#thumbs-up"></use> </svg><svg class="icon"> <use xlink:href="#wow"></use> </svg>';
-        echo "<div class='cprAlert'><svg width='40px' height='40px' viewBox='0 0 76 76'> <path fill='#ffffff' fill-opacity='1' stroke-width='0.2' stroke-linejoin='round' d='M 38,22.1667C 41.1666,22.1667 57,52.25 55.4166,53.8333C 53.8333,55.4167 22.1667,55.4167 20.5833,53.8333C 19,52.25 34.8333,22.1667 38,22.1667 Z M 38,45.9167C 36.6883,45.9167 35.625,46.98 35.625,48.2917C 35.625,49.6034 36.6883,50.6667 38,50.6667C 39.3116,50.6667 40.375,49.6034 40.375,48.2917C 40.375,46.98 39.3116,45.9167 38,45.9167 Z M 35.625,31.6667L 36.4166,44.3333L 39.5833,44.3333L 40.375,31.6667L 35.625,31.6667 Z '/> </svg><span>Please login to react!</span></div>";
+        echo wp_kses_post("<img src='".PRC_PLUGIN_DIR ."assets/svg/sprite.svg' alt='' />");
     }
 
 }

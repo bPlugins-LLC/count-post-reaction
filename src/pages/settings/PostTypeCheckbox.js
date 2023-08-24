@@ -12,7 +12,7 @@ const PostTypeCheckbox = ({ postTypes = [], handleChange }) => {
 
   return (
     <div className="CPRPostCheckbox">
-      <label>{__("Post Types", "count-post-react")}</label>
+      <label>{__("Post Types", "post-reactions-counter")}</label>
       <div>
         <FormTokenField label="Post Types" value={postTypes} suggestions={allPostTypes} onChange={(postTypes) => handleChange({ postTypes })} />
       </div>
