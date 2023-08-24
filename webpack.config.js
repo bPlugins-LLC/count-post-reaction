@@ -13,7 +13,8 @@ module.exports = (env, argv) => {
 
   var config = {
     entry: {
-      settings: "./src/settings.js",
+      settings: "./src/pages/settings/index.js",
+      public: "./src/public.js",
     },
     output: {
       filename: "[name].js",

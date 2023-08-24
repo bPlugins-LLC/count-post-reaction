@@ -5,7 +5,7 @@ namespace PostReaction\Database;
 class PostReactions
 {
     protected $table;
-    protected $version = 1;
+    protected $version = 3;
     protected $name = 'post_reactions';
 
     public function __construct(Table $table)
@@ -32,9 +32,10 @@ class PostReactions
             post_id INT NOT NULL,
             user_id INT NOT NULL,
             reaction_type VARCHAR(20) NOT NULL,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            UNIQUE KEY unique_post_user_reaction (post_id, user_id)
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             ", $this->version);
+            // UNIQUE KEY unique_post_user_reaction (post_id, CASE WHEN user_id = 0 THEN NULL ELSE user_id END)
+            // UNIQUE KEY unique_post_user_reaction (post_id, user_id)
     }
 
     /**

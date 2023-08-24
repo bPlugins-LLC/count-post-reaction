@@ -9,9 +9,7 @@ module.exports = {
   globals: {
     wp: "readonly",
     jQuery: "readonly",
-    ttpLayer: "readonly",
-    ttpData: "readonly",
-    BSDK: "readonly",
+    postReactScript: "readonly",
   },
   parserOptions: {
     ecmaFeatures: {
