@@ -41,17 +41,17 @@ const CustomReact = ({ customReacts, handleChange }) => {
 
   return (
     <div>
-      <label>{__("Custom React", "post-reactions-counter")}</label>
+      <label>{__("Custom React", "post-reaction")}</label>
       {customReacts.map((item, index) => (
         <>
-          <PanelBody title={item.name || __("Custom React", "post-reactions-counter")} initialOpen={false}>
+          <PanelBody title={item.name || __("Custom React", "post-reaction")} initialOpen={false}>
             <PanelRow>
-              <label>{__("Enabled", "post-reactions-counter")}</label>
+              <label>{__("Enabled", "post-reaction")}</label>
               <FormToggle checked={item.enabled} onChange={() => handleCustomReactChange(index, "enabled", !item.enabled)} />
             </PanelRow>
-            <TextControl label={__("React Name", "post-reactions-counter")} value={item?.name} onChange={(name) => handleCustomReactChange(index, "name", name)} />
-            <TextControl label={__("Unique React ID", "post-reactions-counter")} value={item?.id} onChange={(id) => handleCustomReactChange(index, "id", id)} />
-            <TextareaControl label={__("SVG Icon", "post-reactions-counter")} value={item?.svg} onChange={(svg) => handleCustomReactChange(index, "svg", svg)} />
+            <TextControl label={__("React Name", "post-reaction")} value={item?.name} onChange={(name) => handleCustomReactChange(index, "name", name)} />
+            <TextControl label={__("Unique React ID", "post-reaction")} value={item?.id} onChange={(id) => handleCustomReactChange(index, "id", id)} />
+            <TextareaControl label={__("SVG Icon", "post-reaction")} value={item?.svg} onChange={(svg) => handleCustomReactChange(index, "svg", svg)} />
             <div className="cprActionButton">
               {" "}
               <Button
@@ -63,7 +63,7 @@ const CustomReact = ({ customReacts, handleChange }) => {
                   handleChange({ customReacts: newCustomReacts });
                 }}
               >
-                {__("Delete", "post-reactions-counter")}
+                {__("Delete", "post-reaction")}
               </Button>
             </div>
           </PanelBody>
@@ -71,7 +71,7 @@ const CustomReact = ({ customReacts, handleChange }) => {
       ))}
       <div className="cprActionButton">
         <Button variant="primary" onClick={handleAddNewReact}>
-          {__("Add New React", "post-reactions-counter")}
+          {__("Add New React", "post-reaction")}
         </Button>
       </div>
     </div>

@@ -2,23 +2,23 @@ import "./public.scss";
 
 jQuery(document).ready(function ($) {
   // set reaction cookie
-  function setReactionCookie(postId) {
-    const cookieName = `postReaction_${postId}`;
-    const expirationDate = new Date();
-    expirationDate.setDate(expirationDate.getDate() + 365); // Cookie expires in 1 year
-    document.cookie = `${cookieName}=true; expires=${expirationDate.toUTCString()}; path=/`;
-    localStorage.setItem(cookieName, true);
-  }
+  // function setReactionCookie(postId) {
+  //   const cookieName = `postReaction_${postId}`;
+  //   const expirationDate = new Date();
+  //   expirationDate.setDate(expirationDate.getDate() + 365); // Cookie expires in 1 year
+  //   document.cookie = `${cookieName}=true; expires=${expirationDate.toUTCString()}; path=/`;
+  //   localStorage.setItem(cookieName, true);
+  // }
 
   // check if visitor already reacted
-  function hasReacted(postId) {
-    const cookieName = `postReaction_${postId}`;
+  // function hasReacted(postId) {
+  //   const cookieName = `postReaction_${postId}`;
 
-    if (document.cookie.includes(cookieName) || localStorage.getItem(cookieName)) {
-      return true;
-    }
-    return false;
-  }
+  //   if (document.cookie.includes(cookieName) || localStorage.getItem(cookieName)) {
+  //     return true;
+  //   }
+  //   return false;
+  // }
 
   const alertElement = document.querySelector(".cprAlert span");
 

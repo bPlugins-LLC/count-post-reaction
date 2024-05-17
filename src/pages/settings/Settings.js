@@ -1,4 +1,4 @@
-import { SelectControl, TextareaControl, FormToggle, PanelRow, TabPanel, Button, FormTokenField, __experimentalUnitControl as UnitControl } from "@wordpress/components";
+import { SelectControl, TextareaControl, FormToggle, PanelRow, Button, FormTokenField, __experimentalUnitControl as UnitControl } from "@wordpress/components";
 import { useState, useEffect } from "react";
 import { __ } from "@wordpress/i18n";
 
@@ -12,7 +12,7 @@ import design1 from "./../../assets/design-1.png";
 import design2 from "./../../assets/design-2.png";
 
 const Settings = () => {
-  const { data: savedData, isLoading: dataSaving, saveData } = useWPOptionMutation("cprSettings", { type: "object" });
+  const { isLoading: dataSaving, saveData } = useWPOptionMutation("cprSettings", { type: "object" });
   const { data = {}, isLoading } = useWPOptionQuery("cprSettings");
   const { data: allPostTypes = [], isLoading: postLoading } = useWPOptionQuery("cprPostTypes");
   const [settings, setSettings] = useState(data || {});
@@ -50,7 +50,7 @@ const Settings = () => {
       <>
         <div className="fit-content">
           <PanelRow>
-            <label>{__("Enabled", "post-reactions-counter")}</label>
+            <label>{__("Enabled", "post-reaction")}</label>
             <FormToggle checked={enabled} onChange={() => handleChange({ enabled: !enabled })} />
           </PanelRow>
         </div>
@@ -58,17 +58,17 @@ const Settings = () => {
           <>
             <div className="fit-content">
               <PanelRow>
-                <label>{__("Only User Can React", "post-reactions-counter")}</label>
+                <label>{__("Only User Can React", "post-reaction")}</label>
                 <FormToggle checked={onlyUserCanReact} onChange={() => handleChange({ onlyUserCanReact: !onlyUserCanReact })} />
               </PanelRow>
             </div>
             <div className="fit-content">
               <PanelRow>
-                <label>{__("React Content Position", "post-reactions-counter")}</label>
+                <label>{__("React Content Position", "post-reaction")}</label>
                 <SelectControl
                   options={[
-                    { label: __("Before Content", "post-reactions-counter"), value: "before_content" },
-                    { label: __("After Content", "post-reactions-counter"), value: "after_content" },
+                    { label: __("Before Content", "post-reaction"), value: "before_content" },
+                    { label: __("After Content", "post-reaction"), value: "after_content" },
                   ]}
                   value={contentPosition}
                   onChange={(contentPosition) => handleChange({ contentPosition })}
@@ -93,13 +93,13 @@ const Settings = () => {
             </div>
             <div className="fit-content">
               <PanelRow>
-                <label>{__("Icon Size", "post-reactions-counter")}</label>
+                <label>{__("Icon Size", "post-reaction")}</label>
                 <UnitControl onChange={(iconSize) => handleChange({ iconSize })} value={iconSize} />
               </PanelRow>
             </div>
             <div className="fit-content">
               <PanelRow>
-                <label>{__("Active Icon Background", "post-reactions-counter")}</label>
+                <label>{__("Active Icon Background", "post-reaction")}</label>
                 <BColor onChange={(activeBackground) => handleChange({ activeBackground })} value={activeBackground} />
               </PanelRow>
             </div>
@@ -107,7 +107,7 @@ const Settings = () => {
             <CustomReact customReacts={customReacts} handleChange={handleChange} />
             {/* </div> */}
             <div className="fit-content">
-              <label>{__("Design", "post-reactions-counter")}</label>
+              <label>{__("Design", "post-reaction")}</label>
               <div className="designs">
                 <img onClick={() => handleChange({ design: "design-1" })} src={design1} className={design === "design-1" ? "active" : ""} />
                 <img onClick={() => handleChange({ design: "design-2" })} src={design2} className={design === "design-2" ? "active" : ""} />
@@ -115,12 +115,12 @@ const Settings = () => {
             </div>
 
             <div>
-              <label>{__("Content Before React", "post-reactions-counter")}</label>
+              <label>{__("Content Before React", "post-reaction")}</label>
               {/* <RichText tagName="p" allowedFormats={["core/bold", "core/italic"]} value={beforeContent} onChange={(beforeContent) => handleChange({ beforeContent })} /> */}
               <TextareaControl rows="2" value={beforeContent} onChange={(beforeContent) => handleChange({ beforeContent })} />
             </div>
             <div>
-              <label>{__("Content After React", "post-reactions-counter")}</label>
+              <label>{__("Content After React", "post-reaction")}</label>
               <TextareaControl rows="2" value={afterContent} onChange={(afterContent) => handleChange({ afterContent })} />
             </div>
           </>
@@ -131,7 +131,7 @@ const Settings = () => {
       <div className="cprActionButton">
         {dataSaving && <SimpleLoader />}
         <Button disabled={dataSaving} variant="primary" onClick={handleSaveData}>
-          {__("Save", "post-reactions-counter")}
+          {__("Save", "post-reaction")}
         </Button>
       </div>
       {/* </div> */}

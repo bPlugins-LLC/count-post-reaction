@@ -15,7 +15,7 @@ class Settings {
 
     // add a page settings
     public function add_opt_in_menu(){
-        add_submenu_page( 'tools.php', __("Post Reactions Counter", "post-reactions-counter"), __("Post Reactions Counter", "post-reactions-counter"), 'manage_options', 'post-reactions-counter', [$this, 'callback']
+        add_submenu_page( 'tools.php', __("Post Reaction", "post-reaction"), __("Post Reaction", "post-reaction"), 'manage_options', 'post-reaction', [$this, 'callback']
         );
     }
 
@@ -29,7 +29,7 @@ class Settings {
 
     public function admin_enqueue_scripts(){
         wp_register_style('settings', PRC_PLUGIN_DIR . 'dist/settings.css', ['wp-components'], PRC_VER);
-        wp_register_script('settings', PRC_PLUGIN_DIR . 'dist/settings.js', ['react', 'react-dom', 'wp-components', 'wp-element', 'wp-api', 'wp-i18n', 'wp-data', 'wp-block-editor'], PRC_VER);
+        wp_register_script('settings', PRC_PLUGIN_DIR . 'dist/settings.js', ['react', 'react-dom', 'wp-components', 'wp-element', 'wp-api', 'wp-i18n', 'wp-data', 'wp-block-editor'], PRC_VER, true);
     }
 
     function register_settings(){

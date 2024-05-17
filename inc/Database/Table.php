@@ -69,7 +69,7 @@ class Table
     public function drop($name)
     {
         global $wpdb;
-        $wpdb->query("DROP TABLE IF EXISTS " . $name);
+        $wpdb->query("DROP TABLE IF EXISTS " . $name); 
         delete_option("{$name}_database_version");
     }
 }

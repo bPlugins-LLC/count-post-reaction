@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: Post Reactions Counter
+Plugin Name: Post Reaction
 Version: 1.0.0
 Description: Count post reactions (likes, loves, cares) and enforce one-time reaction per user.
 Author: bPlugins LLC
