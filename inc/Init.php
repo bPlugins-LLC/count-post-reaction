@@ -1,6 +1,8 @@
 <?php
-namespace PostReaction;
+namespace BPPR;
 
+
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 class Init{
    

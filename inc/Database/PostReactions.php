@@ -1,12 +1,12 @@
 <?php
 
-namespace PostReaction\Database;
+namespace BPPR\Database;
 
 class PostReactions
 {
     protected $table;
-    protected $version = 3;
-    protected $name = 'post_reactions';
+    protected $version = 1;
+    protected $name = 'bppr_post_reactions';
 
     public function __construct(Table $table)
     {

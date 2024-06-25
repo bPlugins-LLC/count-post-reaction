@@ -2,7 +2,7 @@
   "name": "rajud/count-post-reactions",
   "autoload": {
     "psr-4": {
-      "PostReaction\\": "inc/"
+      "BPPR\\": "inc/"
     }
   },
   "authors": [

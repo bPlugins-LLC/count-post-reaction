@@ -1,9 +1,12 @@
 <?php
-namespace PostReaction;
+namespace BPPR;
+
+
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 class PostReactionCounter{
 
-    private $table_name = 'post_reactions';
+    private $table_name = 'bppr_post_reactions';
     private $allowed_reactions = array('like', 'love', 'wow', 'angry');
     private $settings = array();
     public function register() {
@@ -19,18 +22,35 @@ class PostReactionCounter{
 
     // Enqueue frontend scripts and styles
     public function enqueue_scripts() {
-        wp_enqueue_style('post-reactions', PRC_PLUGIN_DIR . 'dist/public.css', array(), PRC_VER, 'all');
+        wp_enqueue_style('bppr-post-reactions', BPPR_PLUGIN_DIR . 'dist/public.css', array(), BPPR_VER, 'all');
 
-        wp_enqueue_script('post-reactions-script', PRC_PLUGIN_DIR . 'dist/public.js', array('jquery'), PRC_VER, true);
-        wp_localize_script( 'post-reactions-script', 'postReactScript', [
+        wp_enqueue_script('bppr-post-reactions-script', BPPR_PLUGIN_DIR . 'dist/public.js', array('jquery'), BPPR_VER, true);
+        wp_localize_script( 'bppr-post-reactions-script', 'postReactScript', [
             'ajaxURL' => admin_url('admin-ajax.php'),
-            'onlyUserCanReact' => $this->settings['onlyUserCanReact']
+            'onlyUserCanReact' => $this->settings['onlyUserCanReact'],
+            'nonce' => wp_create_nonce('wp_ajax')
         ] );
+
+
+        // add_inline styles instead internal styles
+        $style = '.post-reactions-list{font-size:'.$this->settings['iconSize'].'; gap: calc('.$this->settings['iconSize'].' / 2)} .post-reactions-list li svg {width: '.$this->settings['iconSize'].'}.post-reactions-list.design-1 .reacted_to{background: '.$this->settings['activeBackground'].'}.post-reactions-list.design-2 li span:not(.prc_react_icon){font-size: }';
+
+        wp_add_inline_style('bppr-post-reactions', $style);
     }
 
     // AJAX callback to save reaction
     public function save_reaction_callback() {
-        if(get_current_user_id() == 0 && $this->settings['onlyUserCanReact']) {
+
+        // do nonce verification
+        $nonce = $_POST['nonce'];
+        
+        if(!wp_verify_nonce($nonce, 'wp_ajax')){
+            wp_send_json_error('unauthorized access');
+        }
+
+        $user_id = get_current_user_id();
+        
+        if($user_id == 0 && $this->settings['onlyUserCanReact']) {
             wp_send_json_error('Please Login to react!');
             
         }
@@ -56,7 +76,7 @@ class PostReactionCounter{
         // Check if the reaction already exists for the post
         if ($this->reaction_exists($post_id, $reaction_type)) {
             if($this->remove_reaction($post_id, $reaction_type)){
-                wp_send_json_success(['count' => $this->get_reactions_count($post_id)]);
+                wp_send_json_success(['count' => $this->get_reactions_count($post_id, $user_id)]);
             }else {
                 wp_send_json_error('Reaction already exists.');
             }
@@ -65,13 +85,13 @@ class PostReactionCounter{
         // Save the reaction in the custom table
         if ($this->save_reaction($post_id, $reaction_type)) {
             // wp_send_json_error( 'trying to save' );
-            wp_send_json_success(['count' => $this->get_reactions_count($post_id)]);
+            wp_send_json_success(['count' => $this->get_reactions_count($post_id, $user_id)]);
         } else {
             wp_send_json_error('Failed to save reaction.');
         }
 
         // Send a response back (if needed)
-        wp_send_json_success(['count' => $this->get_reactions_count($post_id)]);
+        wp_send_json_success(['count' => $this->get_reactions_count($post_id, $user_id)]);
     }
 
     // Display reactions count on posts
@@ -93,8 +113,8 @@ class PostReactionCounter{
     }
 
     private function get_reactions_contents($post_id){
-       
-        $formatted_counts = $this->get_reactions_count($post_id);
+        $user_id = get_current_user_id();
+        $formatted_counts = $this->get_reactions_count($post_id, $user_id);
         $reacted = $formatted_counts['reacted'];
 
         $likeClass = $reacted === 'like' ? 'reacted_to': '';
@@ -122,14 +142,14 @@ class PostReactionCounter{
 
         $count_html .= $this->get_customReacts($post_id, $formatted_counts);
 
-        $count_html .= '</ul>';
+        $count_html .= '</ul><div class="cprAlert"><span></span></div>';
 
-        $style = '<style>.post-reactions-list{font-size:'.$this->settings['iconSize'].'; gap: calc('.$this->settings['iconSize'].' / 2)} .post-reactions-list li svg {width: '.$this->settings['iconSize'].'}.post-reactions-list.design-1 .reacted_to{background: '.$this->settings['activeBackground'].'}.post-reactions-list.design-2 li span:not(.prc_react_icon){font-size: }</style>';
-        return $count_html.$style;
+        
+        return $count_html;
     }
 
     // Get reactions count for a post
-    private function get_reactions_count($post_id) {
+    private function get_reactions_count($post_id, $user_id = null) {
         // Query the custom table and get the count for each reaction type
         // Return a formatted count
 
@@ -142,8 +162,7 @@ class PostReactionCounter{
         // Example:
         global $wpdb;
         $table_name = $wpdb->prefix . $this->table_name;
-        $user_id = get_current_user_id();
-        $counts = $wpdb->get_results("SELECT reaction_type, user_id, COUNT(*) as count,  MAX(CASE WHEN user_id = $user_id THEN $user_id ELSE 0 END) AS reacted FROM $table_name WHERE post_id = $post_id GROUP BY reaction_type", ARRAY_A);
+        $counts = $wpdb->get_results( $wpdb->prepare( "SELECT reaction_type, user_id, COUNT(*) as count,  MAX(CASE WHEN user_id = %d THEN %d ELSE 0 END) AS reacted FROM %i WHERE post_id = %d GROUP BY reaction_type", $user_id, $user_id, $table_name, $post_id), ARRAY_A);
 
         $reacted = false;
         foreach ($counts as $count) {
@@ -154,7 +173,7 @@ class PostReactionCounter{
         }
 
         if(isset($_COOKIE["postReaction_$post_id"]) && $user_id == 0){
-            $reacted = $_COOKIE["postReaction_$post_id"];
+            $reacted = sanitize_text_field($_COOKIE["postReaction_$post_id"]);
         }
 
         $formatted_counts['reacted'] = $reacted;
@@ -165,7 +184,7 @@ class PostReactionCounter{
     // Check if the reaction already exists for the post
     private function reaction_exists($post_id, $reaction_type) {
         global $wpdb;
-        $table_name = $wpdb->prefix . 'post_reactions';
+        $table_name = $wpdb->prefix . $this->table_name;
         $user_id = get_current_user_id();
 
         if($user_id === 0){
@@ -191,9 +210,9 @@ class PostReactionCounter{
     // Save the reaction in the custom table
     private function save_reaction($post_id, $reaction_type) {
         global $wpdb;
-        $table_name = $wpdb->prefix . 'post_reactions';
+        $table_name = $wpdb->prefix . $this->table_name;
 
-        $currentReact = isset($_COOKIE["postReaction_$post_id"]) ? $_COOKIE["postReaction_$post_id"] : null;
+        $currentReact = isset($_COOKIE["postReaction_$post_id"]) ? sanitize_text_field($_COOKIE["postReaction_$post_id"]) : null;
 
         
 
@@ -233,8 +252,8 @@ class PostReactionCounter{
     // Update the reaction in the custom table
     private function update_reaction($post_id, $reaction_type) {
         global $wpdb;
-        $table_name = $wpdb->prefix . 'post_reactions';
-        $currentReact = isset($_COOKIE["postReaction_$post_id"]) ? $_COOKIE["postReaction_$post_id"] : null;
+        $table_name = $wpdb->prefix . $this->table_name;
+        $currentReact = isset($_COOKIE["postReaction_$post_id"]) ? sanitize_text_field( $_COOKIE["postReaction_$post_id"] ) : null;
         $user_id = get_current_user_id();
 
         // $wpdb->query($wpdb->prepare())
@@ -262,7 +281,7 @@ class PostReactionCounter{
     // Remove the reaction from the custom table
     private function remove_reaction($post_id, $reaction_type) {
         global $wpdb;
-        $table_name = $wpdb->prefix . 'post_reactions';
+        $table_name = $wpdb->prefix . $this->table_name;
 
         $result = $wpdb->delete(
             $table_name,
@@ -323,7 +342,7 @@ class PostReactionCounter{
     }
 
     public function footerAlert(){
-        echo wp_kses_post("<img src='".PRC_PLUGIN_DIR ."assets/svg/sprite.svg' alt='' />");
+        echo wp_kses_post("<img src='".BPPR_PLUGIN_DIR ."assets/svg/sprite.svg' alt='' />");
     }
 
 }

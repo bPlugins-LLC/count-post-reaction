@@ -1,6 +1,6 @@
 <?php
 
-namespace PostReaction\Database;
+namespace BPPR\Database;
 
 class Table
 {
@@ -23,7 +23,7 @@ class Table
 
         global $wpdb;
 
-        $full_table_name = $wpdb->prefix . $name;
+        $full_table_name = $wpdb->prefix . sanitize_text_field( $name );
 
         $opts = wp_parse_args($opts, [
             'upgrade_method' => 'dbDelta',
@@ -54,7 +54,8 @@ class Table
             $wpdb->query("DROP TABLE IF EXISTS $full_table_name;");
         }
 
-        $wpdb->query("CREATE TABLE IF NOT EXISTS $full_table_name ( $columns ) $table_options;");
+        // $wpdb->query("CREATE TABLE IF NOT EXISTS $full_table_name ( $columns ) $table_options;");
+        $wpdb->query( $wpdb->prepare("CREATE TABLE IF NOT EXISTS %s ( %s ) %s;", $full_table_name, $columns, $table_options));
 
 
         update_option("{$name}_database_version", $version);

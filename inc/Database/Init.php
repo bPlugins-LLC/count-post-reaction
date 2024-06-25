@@ -1,7 +1,7 @@
 <?php
-namespace PostReaction\Database;
+namespace BPPR\Database;
 
-use PostReaction\Database\Table;
+use BPPR\Database\Table;
 
 class Init{
    

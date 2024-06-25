@@ -61,5 +61,11 @@ e.g.
 
 
 
+== Developer Notes ==
+Public source code GitHub link for review, study, and contribute.
+
+https://github.com/bPlugins-LLC/count-post-reaction
+
+For more information on how to contribute to this plugin, please visit our GitHub repository.
 
 

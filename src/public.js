@@ -23,12 +23,12 @@ jQuery(document).ready(function ($) {
   const alertElement = document.querySelector(".cprAlert span");
 
   $(".post-reactions-list li").on("click", function () {
-    console.log("clicked", alertElement);
+    // console.log("clicked", alertElement);
 
     var post_id = $(this).data("post-id");
     var active_reaction = $(this).data("reaction-type");
     $(this).parent().addClass("disabled");
-    console.log(active_reaction);
+    // console.log(active_reaction);
 
     $.ajax({
       type: "POST",
@@ -37,16 +37,18 @@ jQuery(document).ready(function ($) {
         action: "update_post_reaction",
         post_id,
         reaction_type: active_reaction,
+        nonce: postReactScript.nonce
       },
       success: (response) => {
-        console.log(response);
+        // console.log(response);
+        // return;
         if (!response.success) {
           alertElement.innerText = response.data;
           alertElement.parentNode.style.display = "flex";
-          console.log("error", alertElement);
+          // console.log("error", alertElement);
           setTimeout(() => {
             alertElement.parentNode.style.display = "none";
-          }, 2000);
+          }, 4000);
           $(this).parent().removeClass("disabled");
           return;
         }

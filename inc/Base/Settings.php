@@ -1,6 +1,6 @@
 <?php
 
-namespace PostReaction\Base;
+namespace BPPR\Base;
 
 
 class Settings {
@@ -28,8 +28,8 @@ class Settings {
     }
 
     public function admin_enqueue_scripts(){
-        wp_register_style('settings', PRC_PLUGIN_DIR . 'dist/settings.css', ['wp-components'], PRC_VER);
-        wp_register_script('settings', PRC_PLUGIN_DIR . 'dist/settings.js', ['react', 'react-dom', 'wp-components', 'wp-element', 'wp-api', 'wp-i18n', 'wp-data', 'wp-block-editor'], PRC_VER, true);
+        wp_register_style('settings', BPPR_PLUGIN_DIR . 'dist/settings.css', ['wp-components'], BPPR_VER);
+        wp_register_script('settings', BPPR_PLUGIN_DIR . 'dist/settings.js', ['react', 'react-dom', 'wp-components', 'wp-element', 'wp-api', 'wp-i18n', 'wp-data', 'wp-block-editor'], BPPR_VER, true);
     }
 
     function register_settings(){
