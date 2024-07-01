@@ -33,7 +33,7 @@ class PostReactionCounter{
 
 
         // add_inline styles instead internal styles
-        $style = '.post-reactions-list{font-size:'.$this->settings['iconSize'].'; gap: calc('.$this->settings['iconSize'].' / 2)} .post-reactions-list li svg {width: '.$this->settings['iconSize'].'}.post-reactions-list.design-1 .reacted_to{background: '.$this->settings['activeBackground'].'}.post-reactions-list.design-2 li span:not(.prc_react_icon){font-size: }';
+        $style = '.post-reactions-list{font-size:'. esc_html($this->settings['iconSize']).'; gap: calc('.esc_html($this->settings['iconSize']).' / 2)} .post-reactions-list li svg {width: '.esc_html($this->settings['iconSize']).'}.post-reactions-list.design-1 .reacted_to{background: '.esc_html($this->settings['activeBackground']).'}.post-reactions-list.design-2 li span:not(.prc_react_icon){font-size: }';
 
         wp_add_inline_style('bppr-post-reactions', $style);
     }
